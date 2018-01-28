@@ -10,7 +10,7 @@
 firebase.initializeApp(config);
 
  // Get a reference to the storage service, which is used to create references in your storage bucket
-var imagesFBRef = firebase.database().ref().child('registroConcursante').orderByChild("v").equalTo("true");
+var imagesFBRef = firebase.database().ref().child('fotos').orderByChild("v").equalTo("true");
 var paginaActual = 1;
   
 $( document ).ready(function() {
@@ -46,7 +46,7 @@ function loadImages(){
 
       $('.check').click(function(){
         var codigo =$(this).attr('alt');
-        var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+        var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
         updateRefFB.update({v:"false"});
         updateRefFB.update({v_notP:"false"});
         console.log("codigo:",codigo);
@@ -69,7 +69,7 @@ function loadImages(){
 
           $('.check').click(function(){
             var codigo =$(this).attr('alt');
-            var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+            var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
             updateRefFB.update({v:"false"});
             updateRefFB.update({v_notP:"false"});
             console.log("codigo:",codigo);
@@ -93,7 +93,7 @@ function loadImages(){
 
             $('.check').click(function(){
               var codigo =$(this).attr('alt');
-              var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+              var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
               updateRefFB.update({v:"false"});
               updateRefFB.update({v_notP:"false"});
               console.log("codigo:",codigo);
@@ -156,21 +156,16 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
         resultado += `<div class="col s6 m4 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
-                          <img class="materialboxed" style="min-height=300px;" src="`+datos[key].urlImagen+`">
+                          <a target="_blank" href="`+datos[key].urlImagen+`"> 
+                            <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
+                          </a>
                           <a class="btn-floating halfway-fab waves-effect waves-light red">
                             <i alt="`+key+`" class="check material-icons">close</i>
                           </a>
                         </div>
                         <div class="card-content">
-                          <p style="text-align:left; font-weight:bolder;">Autor</p>
-                          <p style="text-align:center">`+datos[key].name+ `</p>
-                          <p style="text-align:center">`+datos[key].lastName+ `</p>
-                          <p style="text-align:left; font-weight:bolder;">e-mail</p>
-                          <p style="text-align:center">`+datos[key].email+`</p>
-                          <p style="text-align:left; font-weight:bolder;">codigo</p>
-                          <div class="divId" >
-                            <p class="key1" style="text-align:center">`+key+`</p>
-                          </div>
+                         <p style="text-align:left; font-weight:bolder;">Código</p>
+                         <p class="key1" style="text-align:center">`+key+`</p>
                         </div>
                       </div>
                     </div>`;

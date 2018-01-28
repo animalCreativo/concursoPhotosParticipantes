@@ -10,7 +10,7 @@
 firebase.initializeApp(config);
 
  // Get a reference to the storage service, which is used to create references in your storage bucket
-var imagesFBRef = firebase.database().ref().child('registroConcursante').orderByChild("v_p_notW").equalTo("true");
+var imagesFBRef = firebase.database().ref().child('fotos').orderByChild("v_p_notW").equalTo("true");
 var paginaActual = 1;
 
 $( document ).ready(function() {
@@ -46,7 +46,7 @@ function loadImages(){
 
       $('.check').click(function(){
         var codigo =$(this).attr('alt');
-        var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+        var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
         updateRefFB.update({v_p_notW:"false"});
         updateRefFB.update({v_p_w:"false"});
         console.log("codigo:",codigo);
@@ -58,11 +58,11 @@ function loadImages(){
         var codigo ="";
         if (codigoTotal.includes("star_border")){
           codigo = codigoTotal.replace("star_border","");
-          var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+          var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
           updateRefFB.update({v_p_w:"true"});
         }else {
           codigo = codigoTotal.replace("star","");
-          var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+          var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
           updateRefFB.update({v_p_w:"false"});
         }
         console.log("codigo:",codigo);
@@ -85,7 +85,7 @@ function loadImages(){
 
           $('.check').click(function(){
             var codigo =$(this).attr('alt');
-            var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+            var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
             updateRefFB.update({v_p_notW:"false"});
             updateRefFB.update({v_p_w:"false"});
             console.log("codigo:",codigo);
@@ -95,11 +95,11 @@ function loadImages(){
             var codigo ="";
             if (codigoTotal.includes("star_border")){
               codigo = codigoTotal.replace("star_border","");
-              var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+              var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
               updateRefFB.update({v_p_w:"true"});
             }else {
               codigo = codigoTotal.replace("star","");
-              var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+              var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
               updateRefFB.update({v_p_w:"false"});
             }
             console.log("codigo:",codigo);
@@ -124,7 +124,7 @@ function loadImages(){
 
             $('.check').click(function(){
               var codigo =$(this).attr('alt');
-              var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+              var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
               updateRefFB.update({v_p_notW:"false"});
               updateRefFB.update({v_p_w:"false"});
               console.log("codigo:",codigo);
@@ -135,11 +135,11 @@ function loadImages(){
               var codigo ="";
               if (codigoTotal.includes("star_border")){
                 codigo = codigoTotal.replace("star_border","");
-                var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+                var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
                 updateRefFB.update({v_p_w:"true"});
               }else {
                 codigo = codigoTotal.replace("star","");
-                var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+                var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
                 updateRefFB.update({v_p_w:"false"});
               }
               console.log("codigo:",codigo);
@@ -203,28 +203,20 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
           resultado += `<div class="col s6 m4 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
-                          <img class="materialboxed" style="min-height=300px;" src="`+datos[key].urlImagen+`">
-                          <a class="btn-floating halfway-fab waves-effect waves-light red">
+                          <a target="_blank" href="`+datos[key].urlImagen+`"> 
+                            <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
+                          </a>
+                          <a class="btn-floating halfway-fab waves-effect waves-light red" style="left: 24px; right: 0px;">
                             <i alt="`+key+`" class="check material-icons">favorite</i>
-                           
+                          </a>
+                           <a class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i alt="`+key+"star"+`" class="favoriteBtn material-icons">star</i>
                           </a>
 
                         </div>
                         <div class="card-content">
-                          <p style="text-align:left; font-weight:bolder;">Autor</p>
-                          <p style="text-align:center">`+datos[key].name+ `</p>
-                          <p style="text-align:center">`+datos[key].lastName+ `</p>
-                          <p style="text-align:left; font-weight:bolder;">e-mail</p>
-                          <p style="text-align:center">`+datos[key].email+`</p>
-                          <p style="text-align:left; font-weight:bolder;">codigo</p>
-                          <div class="divId" >
-                            <p class="key1" style="text-align:center">`+key+`</p>
-                          </div>
-
-                          <a class="btn-floating halfway-fab waves-effect waves-light red">
-                            <i alt="`+key+"star"+`" class="favoriteBtn material-icons">star</i>
-                           
-                          </a>
+                          <p style="text-align:left; font-weight:bolder;">Código</p>
+                          <p class="key1" style="text-align:center">`+key+`</p>    
                         </div>
                       </div>
                     </div>`;
@@ -232,28 +224,20 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
           resultado += `<div class="col s6 m4 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
-                          <img class="materialboxed" style="min-height=300px;" src="`+datos[key].urlImagen+`">
-                          <a class="btn-floating halfway-fab waves-effect waves-light red">
+                          <a target="_blank" href="`+datos[key].urlImagen+`"> 
+                            <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
+                          </a>
+                          <a class="btn-floating halfway-fab waves-effect waves-light red" style="left: 24px; right: 0px;">
                             <i alt="`+key+`" class="check material-icons">favorite</i>
-                           
+                          </a>
+                          <a class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i alt="`+key+"star_border"+`" class="favoriteBtn material-icons">star_border</i>
                           </a>
 
                         </div>
                         <div class="card-content">
-                          <p style="text-align:left; font-weight:bolder;">Autor</p>
-                          <p style="text-align:center">`+datos[key].name+ `</p>
-                          <p style="text-align:center">`+datos[key].lastName+ `</p>
-                          <p style="text-align:left; font-weight:bolder;">e-mail</p>
-                          <p style="text-align:center">`+datos[key].email+`</p>
-                          <p style="text-align:left; font-weight:bolder;">codigo</p>
-                          <div class="divId" >
-                            <p class="key1" style="text-align:center">`+key+`</p>
-                          </div>
-
-                          <a class="btn-floating halfway-fab waves-effect waves-light red">
-                            <i alt="`+key+"star_border"+`" class="favoriteBtn material-icons">star_border</i>
-                           
-                          </a>
+                          <p style="text-align:left; font-weight:bolder;">Código</p>
+                          <p class="key1" style="text-align:center">`+key+`</p>
                         </div>
                       </div>
                     </div>`;

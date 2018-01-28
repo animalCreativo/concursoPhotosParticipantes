@@ -1,4 +1,4 @@
- var config = {
+var config = {
     apiKey: "AIzaSyBtIwxxhd-VUEdje1Q8FhHkhWc3-ihsmUQ",
     authDomain: "fotogramashow.firebaseapp.com",
     databaseURL: "https://fotogramashow.firebaseio.com",
@@ -10,15 +10,21 @@
 firebase.initializeApp(config);
 
  // Get a reference to the storage service, which is used to create references in your storage bucket
-var imagesFBRef = firebase.database().ref().child('fotos').orderByChild("v_notP").equalTo("true");
+var imagesFBRef = firebase.database().ref().child('fotos').orderByChild("v").equalTo("false");
+
 var paginaActual = 1;
+
 
 $( document ).ready(function() {
     console.log( "ready!" );
     $('.materialboxed').materialbox();
-    loadImages(); 
-     $(".dropdown-button").dropdown();  
-    $(".button-collapse").sideNav();      
+    loadImages();   
+    $(".dropdown-button").dropdown();  
+    $(".button-collapse").sideNav(); 
+     console.log("thumb",thumbFBRef);
+     for (var key in thumbFBRef){
+      console.log("thumb: ",thumbFBRef[key].urlImagen_thumb);
+     }
 });
 
 function loadImages(){
@@ -29,7 +35,7 @@ function loadImages(){
     var itemPorPagina = 6;
 
     if (datos == null){
-      document.getElementById('addPhoto').innerHTML = "<p> No hay elemetos para mostrar</p>";  
+      document.getElementById('addPhoto').innerHTML = "<p> No hay elemetos para mostrar</p>";              
     }else {
 
       var numeroImagenes = Object.keys(datos).length;
@@ -45,19 +51,12 @@ function loadImages(){
       $('.materialboxed').materialbox();
 
       $('.check').click(function(){
-        var codigoTotal =$(this).attr('alt');
-        var codigo ="";
-        if (codigoTotal.includes("favorite_border")){
-          codigo = codigoTotal.replace("favorite_border","");
-          var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
-          updateRefFB.update({v_p_notW:"true"});
-        }else {
-          codigo = codigoTotal.replace("favorite","");
-          var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
-          updateRefFB.update({v_p_notW:"false"});
-          updateRefFB.update({v_p_w:"false"});
-        }
+        var codigo =$(this).attr('alt');
+        var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+        updateRefFB.update({v:"true"});
+        updateRefFB.update({v_notP:"true"});
         console.log("codigo:",codigo);
+        
       });
 
       $('#btnRight').click(function(){
@@ -75,20 +74,12 @@ function loadImages(){
           $('.materialboxed').materialbox();
 
           $('.check').click(function(){
-              var codigoTotal =$(this).attr('alt');
-              var codigo ="";
-              if (codigoTotal.includes("favorite_border")){
-                codigo = codigoTotal.replace("favorite_border","");
-                var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
-                updateRefFB.update({v_p_notW:"true"});
-              }else {
-                codigo = codigoTotal.replace("favorite","");
-                var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
-                updateRefFB.update({v_p_notW:"false"});
-                updateRefFB.update({v_p_w:"false"});
-              }
-              console.log("codigo:",codigo);
-            });
+            var codigo =$(this).attr('alt');
+            var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+            updateRefFB.update({v:"true"});
+            updateRefFB.update({v_notP:"true"});
+            console.log("codigo:",codigo);
+         });
         }
       });
 
@@ -107,18 +98,10 @@ function loadImages(){
             $('.materialboxed').materialbox();
 
             $('.check').click(function(){
-              var codigoTotal =$(this).attr('alt');
-              var codigo ="";
-              if (codigoTotal.includes("favorite_border")){
-                codigo = codigoTotal.replace("favorite_border","");
-                var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
-                updateRefFB.update({v_p_notW:"true"});
-              }else {
-                codigo = codigoTotal.replace("favorite","");
-                var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
-                updateRefFB.update({v_p_notW:"false"});
-                updateRefFB.update({v_p_w:"false"});
-              }
+              var codigo =$(this).attr('alt');
+              var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+              updateRefFB.update({v:"true"});
+              updateRefFB.update({v_notP:"true"});
               console.log("codigo:",codigo);
             });
           }
@@ -175,44 +158,23 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
     // load cartas
     for (var key in datos){
       if (i >= inicio && i< final){
-
-        if(datos[key].v_p_notW == "true"){
-
-          resultado += `<div class="col s6 m4 ">
+        resultado += `<div class="col s6 m4 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
-                          <a target="_blank" href="`+datos[key].urlImagen+`"> 
-                            <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
-                          </a>
-                          <a class="btn-floating halfway-fab waves-effect waves-light yellow darken-1">
-                            <i alt="`+key+"favorite"+`" class="check material-icons">favorite</i>
+                          <img class="materialboxed" style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
+                          <a class="btn-floating halfway-fab waves-effect waves-light green">
+                            <i alt="`+key+`" class="check material-icons">check</i>
                           </a>
                         </div>
                         <div class="card-content">
-                          <p style="text-align:left; font-weight:bolder;">Código</p>
-                          <p class="key1" style="text-align:center">`+key+`</p>
+                          <div class="divId" >
+                            <p style="text-align:left; font-weight:bolder;">Código</p>
+                            <p class="key1" style="text-align:center">`+key+`</p>
+                          </div>
                         </div>
                       </div>
                     </div>`;
 
-        }else {
-          resultado += `<div class="col s6 m4 ">
-                      <div id="12ab" class="card">
-                        <div class="card-image ">  
-                          <a target="_blank" href="`+datos[key].urlImagen+`"> 
-                            <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
-                          </a>
-                          <a class="btn-floating halfway-fab waves-effect waves-light yellow darken-1">
-                            <i alt="`+key+"favorite_border"+`" class="check material-icons">favorite_border</i>
-                          </a>
-                        </div>
-                        <div class="card-content">
-                          <p style="text-align:left; font-weight:bolder;">Código</p>
-                          <p class="key1" style="text-align:center">`+key+`</p>
-                        </div>
-                      </div>
-                    </div>`;
-        } 
        console.log("url",key);
       }
       i= i+1;  

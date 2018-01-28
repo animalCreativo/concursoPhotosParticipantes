@@ -10,8 +10,10 @@ var config = {
 firebase.initializeApp(config);
 
  // Get a reference to the storage service, which is used to create references in your storage bucket
-var imagesFBRef = firebase.database().ref().child('registroConcursante').orderByChild("v").equalTo("false");
+var imagesFBRef = firebase.database().ref().child('fotos').orderByChild("v").equalTo("false");
+
 var paginaActual = 1;
+
 
 $( document ).ready(function() {
     console.log( "ready!" );
@@ -19,6 +21,10 @@ $( document ).ready(function() {
     loadImages();   
     $(".dropdown-button").dropdown();  
     $(".button-collapse").sideNav(); 
+     console.log("thumb",thumbFBRef);
+     for (var key in thumbFBRef){
+      console.log("thumb: ",thumbFBRef[key].urlImagen_thumb);
+     }
 });
 
 function loadImages(){
@@ -46,7 +52,7 @@ function loadImages(){
 
       $('.check').click(function(){
         var codigo =$(this).attr('alt');
-        var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+        var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
         updateRefFB.update({v:"true"});
         updateRefFB.update({v_notP:"true"});
         console.log("codigo:",codigo);
@@ -69,7 +75,7 @@ function loadImages(){
 
           $('.check').click(function(){
             var codigo =$(this).attr('alt');
-            var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+            var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
             updateRefFB.update({v:"true"});
             updateRefFB.update({v_notP:"true"});
             console.log("codigo:",codigo);
@@ -93,7 +99,7 @@ function loadImages(){
 
             $('.check').click(function(){
               var codigo =$(this).attr('alt');
-              var updateRefFB = firebase.database().ref().child('registroConcursante/'+codigo);
+              var updateRefFB = firebase.database().ref().child('fotos/'+codigo);
               updateRefFB.update({v:"true"});
               updateRefFB.update({v_notP:"true"});
               console.log("codigo:",codigo);
@@ -154,20 +160,17 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
       if (i >= inicio && i< final){
         resultado += `<div class="col s6 m4 ">
                       <div id="12ab" class="card">
-                        <div class="card-image ">  
-                          <img class="materialboxed" style="min-height=300px;" src="`+datos[key].urlImagen+`">
+                        <div class="card-image "> 
+                          <a target="_blank" href="`+datos[key].urlImagen+`">  
+                            <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
+                          </a>
                           <a class="btn-floating halfway-fab waves-effect waves-light green">
                             <i alt="`+key+`" class="check material-icons">check</i>
                           </a>
                         </div>
                         <div class="card-content">
-                          <p style="text-align:left; font-weight:bolder;">Autor</p>
-                          <p style="text-align:center">`+datos[key].name+ `</p>
-                          <p style="text-align:center">`+datos[key].lastName+ `</p>
-                          <p style="text-align:left; font-weight:bolder;">e-mail</p>
-                          <p style="text-align:center">`+datos[key].email+`</p>
-                          <p style="text-align:left; font-weight:bolder;">codigo</p>
                           <div class="divId" >
+                            <p style="text-align:left; font-weight:bolder;">Código</p>
                             <p class="key1" style="text-align:center">`+key+`</p>
                           </div>
                         </div>
