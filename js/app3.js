@@ -26,7 +26,7 @@ function loadImages(){
 
     var datos = snapshot.val();
     // load paginador
-    var itemPorPagina = 6;
+    var itemPorPagina = 12;
 
     if (datos == null){
       document.getElementById('addPhoto').innerHTML = "<p> No hay elemetos para mostrar</p>";  
@@ -178,13 +178,13 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
 
         if(datos[key].v_p_notW == "true"){
 
-          resultado += `<div class="col s6 m4 ">
+          resultado += `<div class="col s6 m3 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
                           <a target="_blank" href="`+datos[key].urlImagen+`"> 
                             <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
                           </a>
-                          <a class="btn-floating halfway-fab waves-effect waves-light yellow darken-1">
+                          <a class="btn-floating halfway-fab waves-effect waves-light orange">
                             <i alt="`+key+"favorite"+`" class="check material-icons">favorite</i>
                           </a>
                         </div>
@@ -196,13 +196,13 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
                     </div>`;
 
         }else {
-          resultado += `<div class="col s6 m4 ">
+          resultado += `<div class="col s6 m3 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
                           <a target="_blank" href="`+datos[key].urlImagen+`"> 
                             <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
                           </a>
-                          <a class="btn-floating halfway-fab waves-effect waves-light yellow darken-1">
+                          <a class="btn-floating halfway-fab waves-effect waves-light orange">
                             <i alt="`+key+"favorite_border"+`" class="check material-icons">favorite_border</i>
                           </a>
                         </div>

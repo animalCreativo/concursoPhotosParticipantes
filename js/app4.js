@@ -200,16 +200,16 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
     for (var key in datos){
       if (i >= inicio && i< final){
         if(datos[key].v_p_w == "true"){
-          resultado += `<div class="col s6 m4 ">
+          resultado += `<div class="col s6 m3 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
                           <a target="_blank" href="`+datos[key].urlImagen+`"> 
                             <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
                           </a>
                           <a class="btn-floating halfway-fab waves-effect waves-light red" style="left: 24px; right: 0px;">
-                            <i alt="`+key+`" class="check material-icons">favorite</i>
+                            <i alt="`+key+`" class="check material-icons">clear</i>
                           </a>
-                           <a class="btn-floating halfway-fab waves-effect waves-light red">
+                           <a class="btn-floating halfway-fab waves-effect waves-light green">
                             <i alt="`+key+"star"+`" class="favoriteBtn material-icons">star</i>
                           </a>
 
@@ -221,16 +221,16 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
                       </div>
                     </div>`;
         }else {
-          resultado += `<div class="col s6 m4 ">
+          resultado += `<div class="col s6 m3 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
                           <a target="_blank" href="`+datos[key].urlImagen+`"> 
                             <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
                           </a>
                           <a class="btn-floating halfway-fab waves-effect waves-light red" style="left: 24px; right: 0px;">
-                            <i alt="`+key+`" class="check material-icons">favorite</i>
+                            <i alt="`+key+`" class="check material-icons">clear</i>
                           </a>
-                          <a class="btn-floating halfway-fab waves-effect waves-light red">
+                          <a class="btn-floating halfway-fab waves-effect waves-light green">
                             <i alt="`+key+"star_border"+`" class="favoriteBtn material-icons">star_border</i>
                           </a>
 

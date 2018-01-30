@@ -300,13 +300,13 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
       if (i >= inicio && i< final){
 
           
-          resultado += `<div class="col s6 m4 ">
+          resultado += `<div class="col s12 m3 ">
                         <div id="`+key+`" class="card">
                           <div class="card-image ">
                             <a target="_blank" href="`+datos[key].urlImagen+`"> 
                                 <img class="activator"  style="min-height=200px;" src="`+datos[key].urlImagen_thumb+`">
                             </a>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red">
+                            <a class="btn-floating halfway-fab waves-effect waves-light green">
                               <i alt="`+key+`" class="check material-icons">star</i>
                             </a>  
                           </div>

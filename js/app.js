@@ -32,7 +32,7 @@ function loadImages(){
 
     var datos = snapshot.val();
     // load paginador
-    var itemPorPagina = 6;
+    var itemPorPagina = 23;
 
     if (datos == null){
       document.getElementById('addPhoto').innerHTML = "<p> No hay elemetos para mostrar</p>";              
@@ -158,13 +158,13 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
     // load cartas
     for (var key in datos){
       if (i >= inicio && i< final){
-        resultado += `<div class="col s6 m4 ">
+        resultado += `<div class="col s6 m2 ">
                       <div id="12ab" class="card">
                         <div class="card-image "> 
                           <a target="_blank" href="`+datos[key].urlImagen+`">  
                             <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
                           </a>
-                          <a class="btn-floating halfway-fab waves-effect waves-light green">
+                          <a class="btn-floating halfway-fab waves-effect waves-light blue">
                             <i alt="`+key+`" class="check material-icons">check</i>
                           </a>
                         </div>

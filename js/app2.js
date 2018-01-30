@@ -153,14 +153,14 @@ function writeImageDom(datos, itemPorPagina,numeroImagenes,inicio){
     // load cartas
     for (var key in datos){
       if (i >= inicio && i< final){
-        resultado += `<div class="col s6 m4 ">
+        resultado += `<div class="col s6 m2 ">
                       <div id="12ab" class="card">
                         <div class="card-image ">  
                           <a target="_blank" href="`+datos[key].urlImagen+`"> 
                             <img style="min-height=300px;" src="`+datos[key].urlImagen_thumb+`">
                           </a>
                           <a class="btn-floating halfway-fab waves-effect waves-light red">
-                            <i alt="`+key+`" class="check material-icons">close</i>
+                            <i alt="`+key+`" class="check material-icons">clear</i>
                           </a>
                         </div>
                         <div class="card-content">
