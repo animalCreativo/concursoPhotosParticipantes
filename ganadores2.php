@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col s12">
               <h2 id="pot" class="header center-on-small-only">Concurso Vacaciones 2018</h2>
-              <h4 class ="light red-text text-lighten-4 center-on-small-only">Estos son los ganadores :).</h4>
+              <h4 class ="light red-text text-lighten-4 center-on-small-only">Estos son los ganadores categoría 2:).</h4>
             </div>
           </div>
 
@@ -31,7 +31,7 @@
 
 <?php include("footer.php"); ?>
 
-<script src="js/app5.js"></script>
+<script src="js/app52.js"></script>
 
 </body>
 </html>

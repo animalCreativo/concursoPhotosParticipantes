@@ -10,7 +10,7 @@
 firebase.initializeApp(config);
 
  // Get a reference to the storage service, which is used to create references in your storage bucket
-var imagesFBRef = firebase.database().ref().child('fotos').orderByChild("v_notP").equalTo("true");
+var imagesFBRef = firebase.database().ref().child('fotos').orderByChild("v_notP").equalTo("validado");
 var paginaActual = 1;
 
 $( document ).ready(function() {
