@@ -29,7 +29,7 @@ function loadImages(){
     var itemPorPagina = 6;
 
     if (datos == null){
-      document.getElementById('addPhoto').innerHTML = "<p> No hay elemetos para mostrar</p>";  
+      document.getElementById('addPhoto').innerHTML = `<h4 style="color: #315594;padding: 10px;" > No hay elemetos para mostrar</h4>`;   
     }else {
 
       var numeroImagenes = Object.keys(datos).length;
